@@ -1,6 +1,6 @@
 'use strict';
 
-const server = require('../lib/server');
+const server = require('../../lib/server');
 const superagent = require('superagent');
 require('jest');
 
@@ -17,6 +17,9 @@ describe('POST /api/v1/track', function() {
     });
   });
   describe('invalid request', () => {
-
+    test('Should return a 400 status', () => {
+      return superagent.post(`:${process.env.PORT}/api/v1/to`)
+        .then(res => expect(res.status).toEqual(404));
+    });
   });
 });

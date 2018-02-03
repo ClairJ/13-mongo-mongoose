@@ -1,11 +1,17 @@
-'use strict'
+'use strict';
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const Toy = mongoose.Schema({
-  'material': {type: String},
-  'name': {type: String},
-  'origin': {type: String},
-}, {timestamps: true})
+const Toy = module.exports = mongoose.Schema({
+  name: {type: String, max: 32},
+  productions: [{type: mongoose.Schema.Types.ObjectId, ref: 'productions'}],
+});
 
-module.exports = mongoose.model('toys', Toy)
+Toy.pre('save', function(next) {
+  this.validate((err) => {
+    if(err) next(() => console.error(err));
+    next();
+  });
+});
+
+module.exports = mongoose.model('toys', Toy);

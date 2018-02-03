@@ -19,6 +19,9 @@
     "stop-db": "killall mongod"
   },
   "jest": {
+    "setupFiles": [
+     "./__test__/lib/jest-setup.js"
+   ],
     "verbose": true,
     "testEnvironment": "node",
     "collectCoverage": true,
